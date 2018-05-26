@@ -1,0 +1,5 @@
+--require babel-core/register test/config/config.js
+--require test/config/prepare.js
+--reporter mochawesome
+--reporter-options timestamp=true,reportDir=reports,reportFilename=api_tests
+--slow 5000
