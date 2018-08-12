@@ -12,20 +12,20 @@ const makeRequest = async options => {
 		.catch(err => getReponse(err.response));
 };
 
-export default class Http {
-	static get(url, headers = {}) {
+export default {
+	get: (url, headers = {}) => {
 		return makeRequest({ method: 'GET', url, headers });
-	}
+	},
 
-	static post(url, headers = {}, data = {}) {
+	post: (url, headers = {}, data = {}) => {
 		return makeRequest({ method: 'POST', url, headers, data });
-	}
+	},
 
-	static put(url, headers = {}, data = {}) {
+	put: (url, headers = {}, data = {}) => {
 		return makeRequest({ method: 'PUT', url, headers, data });
-	}
+	},
 
-	static delete(url, headers = {}) {
+	delete: (url, headers = {}) => {
 		return makeRequest({ method: 'DELETE', url, headers });
 	}
-}
+};
