@@ -5,30 +5,42 @@ The objective of this project is to provide a structured code that meets the nee
 
 ## Structure
 
-* **reports** : folder that will contain all the tests results in an html file. The name pattern is api*tests*${date_time}.
+- **test-results/reports** : folder that will contain all the tests results in an html file. The name pattern is **test${date_time}**. **Note: The report will only be generated when the -R flag is passed**
 
-* **tests** : folder that contains all the strucure of the project.
+- **test** : folder that contains all the strucure of the project.
 
-* **tests/commons**: contains all files and functions that will be shared in all tests. Ex:API base URL
+- **test/commons**: contains all files and functions that will be shared in all tests. Ex:API base URL
 
-* **tests/config**: framework config files. Ex: mocha and mocha-prepare configuration.
+- **test/config**: framework config files. Ex: mocha and mocha-prepare configuration.
 
-* **tests/libs**: specific libraries that contain the abstraction of proccesses that the test does not need to execute like a request.
+- **test/helpers**: specific libraries that contain the abstraction of proccesses that the test does not need to execute like a request.
 
-* **tests/suite**: contain the actual tests
+- **test/suite**: contain the actual tests
 
-* **tests/suite/{route}**: containe the necessary data to execute tests (dataset.js), the route tests(test.js) and support functions ({route}.js)
+- **test/suite/{route}**: contains the necessary data to execute tests (dataset.js), the route tests({route}.test.js) and support functions ({route}.js)
 
-## Notes
+## Test Notes
 
-* All test files must be inside a folder(with the route name by convention of the project) and the file must be named **tests.js**
-* All the data-set files, by convention, must be inside their respective routes and be named **dataset.js**
-* The report files are generated in **HTML format** and are created inside **report folder** on the root of the project.
+- All test files must be inside the suite folder and the file must be named **{route}.tests.ts**
 
 ## Running Tests
 
-Execute the following command or config a new one on **package.json** scripts.
+Execute the following command or configure a new one on **package.json** scripts.
 
 ```
-npm run tests
+yarn run tests
 ```
+
+- Flags to be passed:
+  - '--file fileName' or '-F fileName' where fileName is the name of the test file to run.
+  - '--path folderPath' or '-P folderPath' where folderName is the name of the folder where the test files are (suite is the default value).
+  - '--test testPattern' or '-T testPattern' where testPattern is the 'name or pattern' of the test you wanna run.
+  - '--report' or '-R' will generate a report in HTML format using mochawesome reporter
+
+### Note that if you pass -F or --file it will be necessary to pass the -P or --path to indicate the folder that the file is present
+
+## Mocha and Chai
+
+- For information on the Mocha (Hooks and other information) access https://mochajs.org/
+
+- For reference on how to assert look at http://www.chaijs.com/api/bdd/

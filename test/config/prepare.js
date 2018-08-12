@@ -5,16 +5,10 @@
  * Also you can use it for a global Teardown
  */
 
-import prepare from 'mocha-prepare';
-
-const globalSetUp = done => {
+before(() => {
 	console.log('execute anything before running any tests');
-	done();
-};
+});
 
-const globalTearDown = done => {
+after(() => {
 	console.log('execute anything after running all tests');
-	done();
-};
-
-prepare(globalSetUp, globalTearDown);
+});
