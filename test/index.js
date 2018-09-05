@@ -18,7 +18,7 @@ function getParams(args) {
 			optional: true
 		},
 		test: {
-			arg: '-T or --Test',
+			arg: '-T or --test',
 			value: args.T || args.test,
 			optional: true
 		},
