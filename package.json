@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/VitorGarcia23/api-test-bdd-node#readme",
   "devDependencies": {
+    "dotenv": "6.0.0",
     "axios": "0.18.0",
     "babel-cli": "6.26.0",
     "babel-preset-env": "1.7.0",

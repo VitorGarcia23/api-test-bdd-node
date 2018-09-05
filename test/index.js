@@ -1,6 +1,9 @@
 import path from 'path';
 import yargs from 'yargs';
 import { spawnSync } from 'child_process';
+import dotenv from 'dotenv';
+
+const environments = ['dev', 'stg'];
 
 function getParams(args) {
 	const params = {
@@ -19,12 +22,22 @@ function getParams(args) {
 			value: args.T || args.test,
 			optional: true
 		},
+		env: {
+			arg: '-E or --env',
+			value: args.E || args.env || 'dev'
+		},
 		report: {
 			arg: '-R or --report',
 			value: args.hasOwnProperty('R') || args.hasOwnProperty('report'),
 			optional: true
 		}
 	};
+
+	if (!environments.includes(params.env.value)) {
+		throw new Error(
+			`Environment passed is not valid. Enviroment must be one of the following ${environments}`
+		);
+	}
 
 	if (params.file.value && !params.folder.value) {
 		throw new Error('The parameter "file" depends on parameter "folder"');
@@ -43,11 +56,13 @@ function getParams(args) {
 
 (async args => {
 	try {
-		const { folder, file, test, report } = getParams(args);
+		const { folder, file, test, report, env } = getParams(args);
+
+		const pathFolder = folder || 'suite';
 
 		const watchTests = file
-			? path.join('test', folder, `${file}.test.js`)
-			: path.join('test', 'suite');
+			? path.join('test', pathFolder, `${file}.test.js`)
+			: path.join('test', pathFolder);
 
 		const command = [
 			'--opts',
@@ -68,6 +83,10 @@ function getParams(args) {
 		if (test) {
 			command.push('-g', test);
 		}
+	
+		dotenv.config({ path: `test/config/environments/${env}.env` });
+
+		console.log("\x1b[33m",`Running tests on '${env}' environment`);
 
 		spawnSync('mocha', command, { stdio: 'inherit', shell: true });
 	} catch (err) {
