@@ -36,6 +36,7 @@ yarn run tests
   - '--path folderPath' or '-P folderPath' where folderName is the name of the folder where the test files are (suite is the default value).
   - '--test testPattern' or '-T testPattern' where testPattern is the 'name or pattern' of the test you wanna run.
   - '--report' or '-R' will generate a report in HTML format using mochawesome reporter
+  - '--env' or '-E' to pass the env you wanna run the tests. (This will use dotenv to load environment variables placed inside the folder test/config/environments, where the file loaded is ${environmentName}.env)
 
 ### Note that if you pass -F or --file it will be necessary to pass the -P or --path to indicate the folder that the file is present
 
